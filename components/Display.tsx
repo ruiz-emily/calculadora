@@ -3,16 +3,16 @@ import { View, StyleSheet } from 'react-native';
 import CustomText from './CustomText';
 
 interface DisplayProps {
-  subText: string;
-  mainText: string;
+  formula: string;
+  displayValue: string;
 }
 
-export default function Display({ subText, mainText }: DisplayProps) {
+export default function Display({ formula, displayValue }: DisplayProps) {
   return (
     <View style={styles.container}>
-      <CustomText style={styles.subText}>{subText}</CustomText>
+      <CustomText style={styles.formulaText}>{formula}</CustomText>
       <CustomText style={styles.displayText} numberOfLines={1} adjustsFontSizeToFit>
-        {mainText}
+        {displayValue}
       </CustomText>
     </View>
   );
@@ -23,19 +23,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    padding: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    borderRadius: 24,
-    marginVertical: 15,
+    padding: 22,
+    backgroundColor: 'rgba(255, 255, 255, 0.92)',
+    borderRadius: 28,
+    marginVertical: 12,
+    borderWidth: 1.5,
+    borderColor: '#FFD1DC',
   },
-  subText: {
-    fontSize: 20,
-    color: '#B08898',
-    marginBottom: 5,
-  },
-  displayText: {
-    fontSize: 48,
-    fontWeight: '600',
-    color: '#4A3E3D',
-  },
+  formulaText: { fontSize: 18, color: '#B08898', marginBottom: 6, fontWeight: '500' },
+  displayText: { fontSize: 44, fontWeight: '700', color: '#4A3E3D' },
 });

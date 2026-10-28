@@ -3,23 +3,28 @@ import { View, StyleSheet, SafeAreaView } from 'react-native';
 import CustomText from '../components/CustomText';
 import Display from '../components/Display';
 import ButtonGrid from '../components/ButtonGrid';
+import { useCalculator } from '../hooks/useCalculator';
 
 export default function CalculatorScreen() {
+  const { formula, displayValue, escribir, borrar, limpiar, calcular } = useCalculator();
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* Cabecera */}
       <View style={styles.header}>
         <View style={styles.badge}>
-          <CustomText style={{ fontSize: 18 }}>🐾</CustomText>
+          <CustomText style={{ fontSize: 20 }}>🐾</CustomText>
         </View>
         <CustomText style={styles.title}>Peanuts</CustomText>
       </View>
 
-      {/* Componente Display */}
-      <Display subText="30,820 + 9,205" mainText="40,025" />
+      <Display formula={formula} displayValue={displayValue} />
 
-      {/* Componente Rejilla de Botones */}
-      <ButtonGrid />
+      <ButtonGrid
+        onWrite={escribir}
+        onClear={limpiar}
+        onDelete={borrar}
+        onCalculate={calcular}
+      />
     </SafeAreaView>
   );
 }
@@ -32,25 +37,20 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     justifyContent: 'space-between',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingTop: 40,
-    paddingHorizontal: 10,
-  },
+  header: { flexDirection: 'row', alignItems: 'center', paddingTop: 35, paddingHorizontal: 5 },
   badge: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: '#FFF',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
+    shadowColor: '#D87093',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 2,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#D87093',
-    letterSpacing: 0.5,
-  },
+  title: { fontSize: 22, fontWeight: '800', color: '#D87093', letterSpacing: 0.5 },
 });
