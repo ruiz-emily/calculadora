@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
+import * as Haptics from 'expo-haptics'; // 1. Importas la librería
 import CustomText from './CustomText';
 
 interface CalculatorButtonProps {
@@ -19,6 +20,15 @@ export default function CalculatorButton({
   isAccent = false,
   flex = 1,
 }: CalculatorButtonProps) {
+  
+  const handlePress = () => {
+    // 2. Disparas una vibración háptica ligera (feedback táctil agradable)
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    
+    // 3. Ejecutas la acción original del botón (escribir, calcular, etc.)
+    onPress();
+  };
+
   return (
     <TouchableOpacity
       style={[
@@ -29,7 +39,7 @@ export default function CalculatorButton({
         { flex },
       ]}
       activeOpacity={0.7}
-      onPress={onPress}
+      onPress={handlePress} // Usamos nuestra función con vibración
     >
       <CustomText style={[styles.buttonText, (isOperator || isAccent) && styles.actionButtonText]}>
         {label}
